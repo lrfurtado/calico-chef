@@ -1,0 +1,13 @@
+- apiVersion: projectcalico.org/v3
+  kind: Node
+  metadata:
+    name: coke1
+- apiVersion: projectcalico.org/v3
+  kind: HostEndpoint
+  metadata:
+    name: coke1-eth0
+    labels:
+      host-endpoint: ingress
+  spec:
+    interfaceName: eth0
+    node: coke1

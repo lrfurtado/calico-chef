@@ -1,0 +1,10 @@
+# https://docs.projectcalico.org/getting-started/bare-metal/installation/binary-mgr
+# curl -O -L  https://github.com/projectcalico/calicoctl/releases/download/v3.15.1/calicoctl
+[calico]
+name=Calico Repository
+baseurl=http://binaries.projectcalico.org/rpm/calico-3.15/
+enabled=1
+skip_if_unavailable=0
+gpgcheck=1
+gpgkey=http://binaries.projectcalico.org/rpm/calico-3.15/key
+priority=97
