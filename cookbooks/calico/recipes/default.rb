@@ -3,13 +3,13 @@ package "etcd" do
 	action :install
 end
 
-#remote_file '/usr/bin/calicoctl' do
-#  source 'https://github.com/projectcalico/calicoctl/releases/download/v3.15.1/calicoctl'
-#  owner 'root'
-#  group 'root'
-#  mode '0755'
-#  action :create
-#end
+remote_file '/usr/bin/calicoctl' do
+  source 'https://github.com/projectcalico/calicoctl/releases/download/v3.15.1/calicoctl'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
 
 template '/etc/yum.repos.d/calico.repo' do
   source 'calico.repo.erb'
@@ -41,6 +41,11 @@ template '/etc/calico/felix.cfg' do
   owner 'root'
   group 'root'
   mode '0644'
+end
+
+bash 'load_calico_cfg' do
+  code '/usr/bin/calicoctl create -f /etc/calico/node.yaml && touch /root/calico_loaded'
+  not_if 'test -f /root/calico_loaded'
 end
 
 

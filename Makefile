@@ -9,3 +9,9 @@ help: ## help
 vagrant-plugins: ## Install common vagrant plugins
 	vagrant plugin install vagrant-vbguest
 	vagrant plugin install vagrant-hostmanager
+
+start:
+	vagrant up
+	vagrant hostmanager
+update:
+	vagrant provision 

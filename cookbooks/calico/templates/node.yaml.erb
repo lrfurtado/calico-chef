@@ -1,13 +1,13 @@
 - apiVersion: projectcalico.org/v3
   kind: Node
   metadata:
-    name: coke1
+    name: <%= node[:fqdn] %>
 - apiVersion: projectcalico.org/v3
   kind: HostEndpoint
   metadata:
-    name: coke1-eth0
+    name: <%= node[:fqdn] %>-all
     labels:
       host-endpoint: ingress
   spec:
-    interfaceName: eth0
-    node: coke1
+    interfaceName: '*'
+    node: <%= node[:fqdn] %>

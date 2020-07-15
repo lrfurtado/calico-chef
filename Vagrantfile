@@ -1,11 +1,16 @@
 Vagrant.configure("2") do |config|
 
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest= true
+
   #centos version to be installed on machines
   config.vm.box = "centos/7"
   config.vm.box_version = "1902.01"
 
   config.vm.define "etcd" do |etcd|
-	etcd.vm.network "private_network", ip: "192.168.50.2", auto_config: false
+    etcd.vm.hostname = "etcd"
+	etcd.vm.network "private_network", ip: "192.168.50.2"
     etcd.vm.provision "chef_solo" do |chef|
        chef.add_recipe "etcd"
        chef.arguments = "--chef-license accept"
@@ -15,7 +20,8 @@ Vagrant.configure("2") do |config|
   (1..3).each do |i|
     last_octet = 2 + i
     config.vm.define "node#{i}" do |node|
-      node.vm.network "private_network", ip: "192.168.50.#{last_octet}", auto_config: false
+      node.vm.hostname = "node#{i}" 
+      node.vm.network "private_network", ip: "192.168.50.#{last_octet}"
       node.vm.provision "chef_solo" do |chef|
          chef.add_recipe "calico"
          chef.arguments = "--chef-license accept"
