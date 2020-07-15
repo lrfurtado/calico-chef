@@ -1,8 +1,3 @@
-
-package "etcd" do
-	action :install
-end
-
 remote_file '/usr/bin/calicoctl' do
   source 'https://github.com/projectcalico/calicoctl/releases/download/v3.15.1/calicoctl'
   owner 'root'
