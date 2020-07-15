@@ -9,6 +9,7 @@ remote_file '/usr/bin/calicoctl' do
   group 'root'
   mode '0755'
   action :create
+  not_if 'test -f /usr/bin/calicoctl'
 end
 
 template '/etc/yum.repos.d/calico.repo' do
@@ -20,6 +21,11 @@ end
 
 package "calico-felix" do
 	action :install
+end
+
+service 'calico-felix' do
+  supports :status => true, :restart => true, :truereload => true
+  action [ :enable, :start ]
 end
 
 template '/etc/calico/node.yaml' do
