@@ -1,0 +1,20 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: allow-icmp
+spec:
+  order: 200
+  selector: all()
+  types:
+  - Ingress
+  - Egress
+  ingress:
+  - action: Allow
+    protocol: ICMP
+  - action: Allow
+    protocol: ICMPv6
+  egress:
+  - action: Allow
+    protocol: ICMP
+  - action: Allow
+    protocol: ICMPv6

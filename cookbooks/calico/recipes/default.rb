@@ -30,6 +30,15 @@ template '/etc/calico/node.yaml' do
   mode '0644'
 end
 
+template '/etc/calico/allow-icmp.yaml' do
+  source 'allow-icmp.yaml.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+
+
 template '/etc/calico/calicoctl.cfg' do
   source 'calicoctl.cfg.erb'
   owner 'root'
