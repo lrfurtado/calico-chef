@@ -30,14 +30,6 @@ template '/etc/calico/node.yaml' do
   mode '0644'
 end
 
-template '/etc/calico/allow-icmp.yaml' do
-  source 'allow-icmp.yaml.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-end
-
-
 
 template '/etc/calico/calicoctl.cfg' do
   source 'calicoctl.cfg.erb'
@@ -56,6 +48,15 @@ end
 bash 'load_calico_cfg' do
   code '/usr/bin/calicoctl create -f /etc/calico/node.yaml && touch /root/calico_loaded'
   not_if 'test -f /root/calico_loaded'
+end
+
+(1..9).each do |i|
+   template "/etc/calico/part-00#{i}.yaml" do
+     source "part-00#{i}.yaml.erb"
+     owner 'root'
+     group 'root'
+     mode '0644'
+   end
 end
 
 
